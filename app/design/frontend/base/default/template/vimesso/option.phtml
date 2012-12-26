@@ -1,0 +1,38 @@
+<div class="gift-messages-vimesso">
+    <!--<span class="title-vimesso"><?php echo Mage::helper('vimesso')->getOptionTitle(); ?></span>-->
+    <p>
+    <?php if ($this->isVimessoOnline()): ?>
+        <input type="checkbox" name="allow_vimesso" id="allow_vimesso" value="1" class="checkbox" <?php if ($this->quoteContainsVimesso()) { echo 'checked="checked"'; } ?>>
+        <span class="text-vimesso"><label for="allow_vimesso"><?php echo Mage::helper('vimesso')->getOptionLabel(); ?> (<?php if((float) $this->getPrice() > 0): ?><?php echo Mage::helper('core')->currency($this->getPrice()) ?><?php else: ?><?php echo $this->__('Free'); ?><?php endif; ?>)</label></span>
+    <?php else: ?>
+        <span class="status-vimesso"><?php echo $this->__('Vimesso is Offline');?></span>
+    <?php endif ?>
+    <span class="link-vimesso">[<a href="javascript:;" id="link-vimesso"><?php echo $this->__('Learn more about video gift messages'); ?></a>]</span>
+    </p>
+</div>
+<div id="vimesso-more-details" style="display: none;">
+    <?php echo Mage::helper('vimesso')->getOptionDescription(); ?>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+	var lstate = 0;
+	$('link-vimesso').observe('click', function(e)
+	{
+		if(lstate == 0)
+		{
+			$('vimesso-more-details').show();
+			$('link-vimesso').update('<?php echo $this->__('Hide'); ?>');
+			lstate = 1;
+		}
+		else
+		{
+                        $('vimesso-more-details').hide();
+                        $('link-vimesso').update('<?php echo $this->__('Learn more about video gift messages'); ?>');
+                        lstate = 0;
+		}
+	});	
+
+//]]>
+</script>

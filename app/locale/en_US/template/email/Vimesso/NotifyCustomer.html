@@ -1,0 +1,37 @@
+<!--@subject New vimesso @-->
+
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table cellspacing="0" cellpadding="0" border="0" width="98%" style="margin-top:10px; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td align="center" valign="top">
+                <!-- [ header starts here] -->
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td><!-- to add custom logo, put image in /skin/frontend/enterprise/default/images -->
+                            <img src="{{skin url="images/logo_email.png" _area="frontend"}}" alt="logo" title="logo" /></td>
+                    </tr>
+                </table>
+                
+                <!-- [ middle starts here] -->
+                <hr />
+                <table cellspacing="0" cellpadding="0" border="0" width="650">
+                    <tr>
+                        <td valign="top">
+
+                            <p>Dear {{var lastName}} {{var firstName}},</p>
+
+                            <p>Thank you for your purchase on Christian Louboutin shop.</p>
+                            
+                            <p>here the informations of your vimesso : </p>
+                            <p>vimessoId : {{var vimesso_code}}</p>
+                            <p>vimessoLink : <a href="{{var vimesso_creation_link}}" title="your vimesso">my vimesso</a></p>
+                            <p>qrCode : </p><img src="{{var vimesso_cqr}}" />
+
+                            <p>Best Regards.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

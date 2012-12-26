@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Vimesso
+ *
+ * @category    Vimesso
+ * @package     Vimesso
+ */
+-->
+<config>
+    <modules>
+        <Vimesso>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Vimesso>
+    </modules>
+</config>

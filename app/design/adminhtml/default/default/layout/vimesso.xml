@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<layout>
+    <adminhtml_customer_edit>
+        <reference name="customer_edit_tabs">
+            <action method="addTab"><name>customer_edit_tab_vimesso</name><block>vimesso/adminhtml_customer_edit_tab_vimesso</block></action>
+        </reference>
+    </adminhtml_customer_edit>
+    
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab"><name>sales_edit_tab_vimesso</name><block>vimesso/adminhtml_sales_edit_tab_vimesso</block></action>
+        </reference>
+    </adminhtml_sales_order_view>
+    <adminhtml_system_config_edit>
+            <reference name="head">
+                    <action method="addCss"><stylesheet>vimesso/vimesso.css</stylesheet></action>
+            </reference>
+    </adminhtml_system_config_edit>
+    
+     <!--
+    <vimesso_adminhtml_order_openpopupreader>
+        <reference name="head">
+            <action method="addJs">
+                <script>vimesso/popupReader.js</script>
+            </action>
+         </reference>
+       
+        <reference name="content">
+          <block type="vimesso/adminhtml_popup_reading" name="vimesso_popup_reading" template="vimesso/sales/popupreading.phtml"/>
+        </reference> 
+        
+    </vimesso_adminhtml_order_openpopupreader>
+    -->
+</layout>

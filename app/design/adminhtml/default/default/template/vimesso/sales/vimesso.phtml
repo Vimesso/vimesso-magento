@@ -1,0 +1,170 @@
+<script>
+
+
+
+function printPdf(){
+    // url to print PDF    
+    var urlPDF = '<?php echo $this->getPrintUrl(); ?>';
+    document.location.href = (urlPDF);
+} 
+
+function notifyCustomer(){
+    // url to notify the customer (ask him to create vimesso)
+    var urlNotify = '<?php echo $this->getNotifyUrl(); ?>';
+    document.location.href = (urlNotify);
+}
+
+
+   // showPopup('http://dev1.maisondulogiciel.com/magento/index.php/Purchase/Products/productStockDetails/product_id/16/key/40fb3388499bc642ff94759a0b4c19cb/', 'Nokia 2610 Phone');">
+
+function showPopup(popUpCode)
+{
+	//retrieve content via ajax
+/*
+	 var request = new Ajax.Request(
+        url,
+        {
+            method: 'GET',
+            onSuccess: function onSuccess(transport)
+	        			{
+	        				var content = transport.responseText;
+
+							//display windows
+							win = new Window({className: "alphacube", title: title, width:800, height:400, destroyOnClose:true,closable:true,draggable:true, recenterAuto:true, okLabel: "OK"});
+							win.setHTMLContent(content);
+							win.showCenter();
+	        			},
+			onFailure: function onFailure(transport)
+	        			{
+							alert('An error occured : ' + url);
+	        			}
+        }
+    );	
+    
+*/
+
+
+
+
+}
+
+
+</script>
+
+<style type="text/css">
+.bstyle{           
+display: none;
+position: absolute;
+top: 0%;
+left: 0%;
+width: 100%;
+height: 100%;
+background-color: EFEFEF;
+z-index:1001;
+-moz-opacity: 0.8;
+opacity:.80;
+filter: alpha(opacity=80);
+}
+.wstyle {
+display: none;
+position: absolute;
+top: 10%;
+left: 10%;
+width: 85%;
+height: 85%;
+padding: 2px;
+border: 3px solid #000000;
+background-color: white;
+z-index:1002;
+overflow: auto;
+}
+</style>
+
+<?php if (!$this->orderContainsVimesso()): ?>
+    <p><?php echo $this->__('No Vimesso for this order'); ?><br /></p>
+<?php elseif (!$this->isVimessoOnline() || !$_vimesso = $this->getVimesso()): ?>
+    <p><?php echo $this->__('Vimesso is offline, please try later.'); ?><br /></p>
+<?php else: ?>
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Vimesso Settings');  ?></h4>
+    </div> 
+    <div id="div-form" name="div-form"  class="fieldset fieldset-wide">
+        <div class="hor-scroll">
+
+           <fieldset>
+            <div style="margin-bottom: 15px; margin-top: ">
+                <table cellspacing="25px">
+                    <tr>
+                        <td><button type="button" class="scalable" onclick="printPdf();" style=""><span><?php echo $this->__('Print'); ?></span></button></td>
+                        <td><button type="button" class="scalable" onclick="notifyCustomer();" style=""><span><?php echo $this->__('Notify Customer'); ?></span></button></td>
+                    </tr>
+                </table>
+            </div>
+           </fieldset>
+            
+           <fieldset>
+                <table class="form-list">
+                    <tbody>
+                        <tr>
+                            <td class="label" width="20%">
+                               <h2>Reading settings</h2>
+                                <p>
+                                    <h3><?php echo $this->__('Vimesso code : %s', $_vimesso->getCode()); ?></h3>
+                                    <img src="<?php echo $_vimesso->getRqr(); ?>" />
+                                    <br /> 
+                                    <?php //-------------- LINK FOR POPUP READING -------------------------------------- ?>
+                                    <font face=arial size=2>
+                                        <a href = "javascript:void(0)" onclick = "document.getElementById('stext').style.display='block';document.getElementById('fade').style.display='block'">
+                                        <font><?php echo $this->__('Click here to view the vimesso'); ?></font></a> 
+                                    </font>
+                                    <div id="stext" class="wstyle">
+                                        <table style="font-family: Arial; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align=right>
+                                                    <a href = "javascript:void(0)" onclick = "document.getElementById('stext').style.display='none';document.getElementById('fade').style.display='none'"> 
+                                                    <font face=arial size=2>close [ X ]</a></font>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <font size=2 color=# face=arial>
+                                            <h1><?php echo $this->__('Vimesso code : %s', $_vimesso->getCode()); ?></h1><br />
+                                            <iframe height="100%" width="100%" scrolling="auto" frameborder="0" src="<?php echo $_vimesso->getRlink(); ?>"></iframe>
+                                        </font>
+                                    </div>
+                                    <?php //-------------- END -------------------------------------- ?>
+                                </p>
+                             </td>
+                             <td class="label">
+                                  <h2>Creating settings</h2>
+                                   <p>
+                                       <h3>&nbsp;</h3>
+                                       <img src="<?php echo $_vimesso->getCqr(); ?>" />
+                                       <br />
+                                                                           <?php //-------------- LINK FOR POPUP READING -------------------------------------- ?>
+                                    <font face=arial size=2>
+                                        <a href = "javascript:void(0)" onclick = "document.getElementById('stext_create').style.display='block';document.getElementById('fade').style.display='block'">
+                                        <font><?php echo $this->__('Click here to create the vimesso'); ?></font></a> 
+                                    </font>
+                                    <div id="stext_create" class="wstyle">
+                                        <table style="font-family: Arial; width: 100%;" border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align=right>
+                                                    <a href = "javascript:void(0)" onclick = "document.getElementById('stext_create').style.display='none';document.getElementById('fade').style.display='none'"> 
+                                                    <font face=arial size=2>close [ X ]</a></font>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <font size=2 color=# face=arial>
+                                            <iframe height="100%" width="100%" scrolling="auto" frameborder="0" src="<?php echo $_vimesso->getClink(); ?>"></iframe>
+                                        </font>
+                                    </div>
+                                    <?php //-------------- END -------------------------------------- ?>
+                                   </p>
+                             </td>
+                           
+                        </tr>  
+                </table>
+            </fieldset>
+        </div>
+   </div>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+<?php if ($this->getClink()): ?>
+<div class="vimesso-container">
+<span class="tilte-vimesso"><?php echo Mage::helper('vimesso')->getOptionTitle(); ?></span>
+<p>
+    <span class="link-vimesso"><a href="<?php echo $this->getClink(); ?>"><?php echo $this->__('Click here to create your video message now.'); ?></a></span>
+    <span class="text-vimesso"><?php echo $this->__('You can make it later by clicking on a link sent by email.'); ?></span>
+</p>
+</div>
+<?php endif; ?>

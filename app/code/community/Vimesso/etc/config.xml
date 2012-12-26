@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Vimesso>
+            <version>0.0.1</version>
+        </Vimesso>
+    </modules>
+    <global>
+        <models>
+            <vimesso>
+                <class>Vimesso_Model</class>
+            </vimesso>
+        </models>
+        <helpers>
+            <vimesso>
+                <class>Vimesso_Helper</class>
+            </vimesso>
+        </helpers>
+        <resources>
+            <vimesso_setup>
+                <setup>
+                    <module>Vimesso</module>
+                </setup>
+            </vimesso_setup>
+        </resources>
+        <blocks>
+            
+            <!--<adminhtml>
+                    <rewrite>
+                            <customer_edit_tabs>Vimesso_Block_Adminhtml_Customer_Edit_Tabs</customer_edit_tabs>
+                    </rewrite>
+            </adminhtml>-->
+            
+            <vimesso>
+                <class>Vimesso_Block</class>
+            </vimesso>
+        </blocks>
+        <events>
+            <checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <vimesso_save_shipping_observer>
+                        <type>singleton</type>
+                        <class>Vimesso_Model_Observer</class>
+                        <method>applyVimesso</method>
+                    </vimesso_save_shipping_observer>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>
+            <sales_order_place_after>
+                <observers>
+                    <vimesso_sales_order_place_after>
+                        <type>singleton</type>
+                        <class>Vimesso_Model_Observer</class>
+                        <method>salesOrderAfterPlace</method>
+                    </vimesso_sales_order_place_after>
+                </observers>
+            </sales_order_place_after>
+            <sales_model_service_quote_submit_success>
+                <observers>
+                    <vimesso_sales_quote_submit_success>
+                        <type>singleton</type>
+                        <class>Vimesso_Model_Observer</class>
+                        <method>salesQuoteSubmitSuccess</method>
+                    </vimesso_sales_quote_submit_success>
+                </observers>
+            </sales_model_service_quote_submit_success>
+        </events>
+        
+        <resources>
+            <vimesso_setup>
+                <setup>
+                    <module>Vimesso</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </vimesso_setup>
+            <vimesso_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </vimesso_write>
+            <vimesso_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </vimesso_read>
+        </resources>        
+        
+        <!-- Email templates -->
+        <template>
+            <email>
+                <!-- customer notification when purchasing vimesso (not created yet) -->
+                <vimesso_options_email_settings_template translate="label" module="vimesso">
+                    <label>Notify Customer For Vimesso Purchasing</label>
+                    <file>Vimesso/NotifyCustomer.html</file>
+                    <type>html</type>
+                </vimesso_options_email_settings_template>
+                <!-- customer notification when finishing vimesso creation -->
+                <vimesso_options_email_settings_template_vimesso_creation translate="label" module="vimesso">
+                    <label>Notify Customer When Vimesso is Complete</label>
+                    <file>Vimesso/NotifyCustomerForVimessoCreation.html</file>
+                    <type>html</type>
+                </vimesso_options_email_settings_template_vimesso_creation>
+            </email>
+        </template>
+        
+    </global>
+    <frontend>
+        <routers>
+            <vimesso>
+                <use>standard</use>
+                <args>
+                    <module>Vimesso</module>
+                    <frontName>vimesso</frontName>
+                </args>
+            </vimesso>
+        </routers>
+        <translate>
+            <modules>
+                <Vimesso>
+                    <files>
+                        <default>Vimesso.csv</default>
+                    </files>
+                </Vimesso>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <vimesso>
+                    <file>vimesso.xml</file>
+                </vimesso>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <admin>
+        <routers>
+            <adminhtml>
+                <use>admin</use>
+                <args>
+                    <modules>
+                        <training before="Mage_Adminhtml">Vimesso_Adminhtml</training>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+		
+                        <routers>
+            <vimesso>
+                <use>admin</use>
+                <args>
+                    <module>Vimesso</module>
+                    <frontName>vimesso</frontName>
+                </args>
+            </vimesso>
+        </routers>
+
+                
+    </admin>    
+    
+    <!--<admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <vimesso after="Mage_Adminhtml">Vimesso</vimesso>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>-->
+    <adminhtml>
+        <!--<translate>
+            <modules>
+                <Vimesso>
+                    <files>
+                        <default>Vimesso.csv</default>
+                    </files>
+                </Vimesso>
+            </modules>
+        </translate>-->
+        <layout>
+            <updates>
+                <vimesso>
+                    <file>vimesso.xml</file>
+                </vimesso>
+            </updates>
+        </layout>
+        
+        
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <vimesso_options>
+                                            <title>Vimesso Section</title>
+                                        </vimesso_options>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        
+    </adminhtml>
+</config>

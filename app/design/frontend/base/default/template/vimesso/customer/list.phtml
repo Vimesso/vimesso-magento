@@ -1,0 +1,38 @@
+<?php 
+$_helper = Mage::helper('vimesso');
+?>
+<div class="current-wrapper my-vimesso">
+<div class="page-title">
+    <h1><?php echo $this->__('My Vimesso') ?></h1>
+</div>
+<?php if ($this->isVimessoOnline()): ?>
+    <table class="data-table">
+        <colgroup>
+        <col width="1">
+        <col width="1">
+        <col width="1">
+        <col width="1">
+        </colgroup>
+        <thead>
+            <tr class="first last">
+                <th><?php echo $this->__("Order #"); ?></th>
+                <th><?php echo $this->__("Date"); ?></th>
+                <th><?php echo $this->__("Vimesso #"); ?></th>
+                <th><?php echo $this->__("Vimesso recorded"); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->getVimessoCollection() as $vimesso): ?>
+            <tr class="first odd">
+                <td><a href="<?php echo Mage::getUrl('vimesso/index/create', array('page' => base64_encode($vimesso->getClink()))); ?>"><?php echo $vimesso->getOrderNumber(); ?></a></td>
+                <td><span class="nobr"><?php echo $this->formatDate($vimesso->getDate(), 'short', false) ?></span></td>
+                <td><?php echo $vimesso->getCode(); ?></td>
+                <td><?php echo $_helper->getMessageStatus($vimesso->getStatus()); ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p><?php echo $this->__('Vimesso is offline, please try later.'); ?><br /></p>
+<?php endif;?>
+</div>
