@@ -79,7 +79,9 @@ class Vimesso_Helper_Data extends Mage_Core_Helper_Abstract {
      * get the vimesso of current order
      * 
      */
-    public function getVimesso($order) {
+    public function getVimesso($order)
+    {
+        
         if ($vimesso = $order->getVimesso()) {
             return $vimesso;
         }
