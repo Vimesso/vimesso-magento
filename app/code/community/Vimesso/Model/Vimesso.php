@@ -2,7 +2,8 @@
 
 class Vimesso_Model_Vimesso extends Varien_Object {
 
-    public function getCreationLinkForVimesso() {
+    public function getCreationLinkForVimesso()
+    {
         $currentStoreId = Mage::app()->getStore()->getId();
         Mage::app()->setCurrentStore($this->getStoreId());
         
@@ -15,6 +16,20 @@ class Vimesso_Model_Vimesso extends Varien_Object {
         return $clink;
     }
 
+    public function getReadLinkForVimesso()
+    {
+        $currentStoreId = Mage::app()->getStore()->getId();
+        Mage::app()->setCurrentStore($this->getStoreId());
+        
+        if(Mage::helper('vimesso')->getIsFrame() == "1")
+            $clink = Mage::getUrl('vimesso/index/view', array('page' => base64_encode($this->getRlink())));
+        else
+            $clink = $this->getRlink();
+        
+        Mage::app()->setCurrentStore($currentStoreId);
+        return $clink;
+    }
+    
     public function notifyCustomerWhenPurchasingVimesso()
     {
         $emailTemplate = Mage::getStoreConfig('vimesso_options/email_settings/template_vimesso_creation');

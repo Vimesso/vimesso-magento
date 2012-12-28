@@ -46,7 +46,7 @@ class Vimesso_Helper_Api extends Mage_Core_Helper_Abstract {
 
     public function registerVimesso($onum, $email)
     {
-        $httpClient = new Zend_Http_Client($this->getApiUrl() . '/api/post');
+        $httpClient = new Zend_Http_Client($this->getApiUrl() . '/post');
         $httpClient->setHeaders('apikey', $this->getApiKey());
         $httpClient->setHeaders('apisecret', $this->getApiSecret());
         $httpClient->setParameterPost('onum', $onum);
@@ -71,7 +71,7 @@ class Vimesso_Helper_Api extends Mage_Core_Helper_Abstract {
     }
 
     public function getVimessoByOnum($onum) {
-        $httpClient = new Zend_Http_Client($this->getApiUrl() . '/api');
+        $httpClient = new Zend_Http_Client($this->getApiUrl());
         $httpClient->setHeaders('apikey', $this->getApiKey());
         $httpClient->setHeaders('apisecret', $this->getApiSecret());
         $httpClient->setParameterGet('order_number', $onum);
@@ -92,7 +92,7 @@ class Vimesso_Helper_Api extends Mage_Core_Helper_Abstract {
     
     public function getVimessoCollectionByEmail($email) {
         $collection = new Varien_Data_Collection();
-        $httpClient = new Zend_Http_Client($this->getApiUrl() . '/api');
+        $httpClient = new Zend_Http_Client($this->getApiUrl());
         $httpClient->setHeaders('apikey', $this->getApiKey());
         $httpClient->setHeaders('apisecret', $this->getApiSecret());
         $httpClient->setParameterGet('customer', $email);
